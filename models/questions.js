@@ -7,10 +7,12 @@ questionSchema = new mongoose.Schema({
     },
     options:[
         {
-            type:mongoose.Types.ObjectId,
-            ref:'options'
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Option'
         }
     ]
+},{
+    timestamps:true
 })
 
 
