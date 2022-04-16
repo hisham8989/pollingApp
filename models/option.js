@@ -18,9 +18,9 @@ optionSchema = new mongoose.Schema(
   }
 )
 
+// dynamcally adding a link for adding a vote to a option
 optionSchema.pre('save', async function (next) {
   try {
-
     this.link_to_vote = `http://localhost:3000/api/v1/options/${this._id}/add_vote`
 
     return next()

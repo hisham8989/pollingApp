@@ -8,8 +8,12 @@ router.get('/', (req, res) => {
   })
 })
 
+// load all routes regarding options
 router.use('/options', require('./options'))
 
+
+// load all routes regarding questions
+// extra routes for creating options that needs question id
 router.use('/questions', require('./questions'))
 
 module.exports = router

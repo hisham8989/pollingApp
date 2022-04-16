@@ -8,7 +8,10 @@ router.get('/',(req,res)=>{
         message:"Welcome Home"
     })
 })
-
+/**@routes
+ * 
+ *   localhost:3000/api/v1/
+ */
 router.use('/api',require('./api'))
 
 module.exports = router

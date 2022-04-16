@@ -1,6 +1,7 @@
 const Questions = require('../../../models/questions')
 const Option = require('../../../models/option')
 
+// list all the question
 module.exports.index = async (req, res) => {
   try {
     const questions = await Questions.find({}).populate({
@@ -22,6 +23,7 @@ module.exports.index = async (req, res) => {
   }
 }
 
+// will create a question with empty options
 module.exports.create = async (req, res) => {
   try {
     const question = await Questions.create(req.body)
@@ -39,6 +41,7 @@ module.exports.create = async (req, res) => {
   }
 }
 
+// get a question
 module.exports.getQuestion = async (req, res) => {
   try {
     const question = await Questions.findById(req.params.id).populate({
@@ -60,6 +63,7 @@ module.exports.getQuestion = async (req, res) => {
   }
 }
 
+// create a option for a question
 module.exports.createOption = async (req, res) => {
   try {
     const question = await Questions.findById(req.params.id)
@@ -79,6 +83,8 @@ module.exports.createOption = async (req, res) => {
   }
 }
 
+
+// delete a question that does not carry any vote to their options
 module.exports.destroy = async (req, res) => {
   try {
     const question = await Questions.findById(req.params.id).populate(
