@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const env = require('../config/environment')
 optionSchema = new mongoose.Schema(
   {
     text: {
@@ -21,8 +21,11 @@ optionSchema = new mongoose.Schema(
 // dynamcally adding a link for adding a vote to a option
 optionSchema.pre('save', async function (next) {
   try {
+    if(env.name=='development'){
     this.link_to_vote = `http://localhost:3000/api/v1/options/${this._id}/add_vote`
-
+    }else{
+      this.link_to_vote = `https://polling-api-111.herokuapp.com/api/v1/options/${this._id}/add_vote`
+    }
     return next()
   } catch (error) {
     return next(error)
