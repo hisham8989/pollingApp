@@ -1,4 +1,3 @@
-
 # Polling App
 
 it is a basic polling app that offers to create a question and options regarding it
@@ -11,7 +10,6 @@ it is a basic polling app that offers to create a question and options regarding
 - Delete a question → ( A question can’t be deleted if one of it’s options has votes)
 - Delete an option → ( An option can’t be deleted if it has even one vote given to it)
 - View a question with it’s options and all the votes given to it
-
 
 ## Run Locally
 
@@ -39,26 +37,25 @@ Start the server
   npm run start
 ```
 
-# To connect the mongo db locally 
+# To connect the mongo db locally
 
 - replace the code from a /config/mongoose.js with the code below :-
 
+  const mongoose = require('mongoose')
 
-    const mongoose = require('mongoose')
+  let dbName = ### <-- database name of your choice
+  mongoose.connect('mongodb://localhost:27017/' + dbName || 'polling_local')
 
-    let dbName = ### <-- database name of your choice
-    mongoose.connect('mongodb://localhost:27017/' + dbName || 'polling_local')
+  const db = mongoose.connection
 
-    const db = mongoose.connection
+  db.on('error',console.error.bind(console,"Error in in connecting to MongoDb"))
 
-    db.on('error',console.error.bind(console,"Error in in connecting to MongoDb"))
+  db.once('open',function () {
+  console.log("Connected to Database :: MongoDb",dbName);
+  })
 
-    db.once('open',function () {
-    console.log("Connected to Database :: MongoDb",dbName);
-    })
+  module.exports = db;
 
-
-    module.exports = db;
 ## API Reference
 
 #### Get all questions
@@ -81,25 +78,44 @@ Start the server
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `string` | **Required**. Id of item to fetch |
 
-
 #### Post create question
 
 ```http
   GET /api/v1/questions/create
+  body - title : 'Where is the question?'
 ```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `string` | **Required**. Id of item to fetch |
-
 
 #### Post create option for a question
 
 ```http
   GET /api/v1/questions/${id}/options/create
+  body - text : 'option1'
 ```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `string` | **Required**. Id of item to fetch |
 
+#### Get delete a option for a question
+
+```http
+  GET /api/v1/options/${id}/delete
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
+#### Get delete a question
+
+```http
+  GET /api/v1/questions/${id}/delete
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
