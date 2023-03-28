@@ -81,7 +81,7 @@ Start the server
 #### Post create question
 
 ```http
-  GET /api/v1/questions/create
+  POST /api/v1/questions/create
   body - title : 'Where is the question?'
 ```
 
